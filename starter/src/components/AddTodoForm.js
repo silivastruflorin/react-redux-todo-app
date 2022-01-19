@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import {connect} from 'react-redux';
 
-const AddTodoForm = () => {
+const AddTodoForm = ({currentListItemsRetrived}) => {
 	const [value, setValue] = useState('');
 
 	const onSubmit = (event) => {
 		event.preventDefault();
 		console.log('user entered: ' + value);
+		// adauga la state ul curent noul todo cu valoarea din <input>
+		console.log(currentListItemsRetrived);
 	};
 
 	return (
@@ -26,4 +29,10 @@ const AddTodoForm = () => {
 	);
 };
 
-export default AddTodoForm;
+const mapStateToProps = (state) => (     //any time the store is updated, mapStateToProps will be called. function takes a maximum of two parameters. 
+	{
+		currentListItemsRetrived : state.todo.currentListItems    //retrives the currentListItems from state.reducerKey from rootReducer and puts it on currentListItemsRetreived to be used in component
+	}	
+) // returns object mapStateToProps?: (state, ownPropsObject) => Object
+
+export default connect(mapStateToProps)(AddTodoForm);
