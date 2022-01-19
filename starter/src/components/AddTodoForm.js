@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {connect} from 'react-redux';
+import addItem from '../redux/todo.actions';
 
-const AddTodoForm = ({currentListItemsRetrived}) => {
+const AddTodoForm = ({currentListItemsRetrived,additemActionMapped}) => {
 	const [value, setValue] = useState('');
 
 	const onSubmit = (event) => {
@@ -9,6 +10,7 @@ const AddTodoForm = ({currentListItemsRetrived}) => {
 		console.log('user entered: ' + value);
 		// adauga la state ul curent noul todo cu valoarea din <input>
 		console.log(currentListItemsRetrived);
+		additemActionMapped(value);
 	};
 
 	return (
@@ -35,4 +37,11 @@ const mapStateToProps = (state) => (     //any time the store is updated, mapSta
 	}	
 ) // returns object mapStateToProps?: (state, ownPropsObject) => Object
 
-export default connect(mapStateToProps)(AddTodoForm);
+
+const mapDispatchToProps = (dispatch) => {
+	return{
+		additemActionMapped : (itemTitle) => dispatch(addItem(itemTitle)) 
+	}
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(AddTodoForm);

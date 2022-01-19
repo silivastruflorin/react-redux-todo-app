@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-    currentListItems: [{ id: 1, title: 'todo1', completed: false }]
+    currentListItems: []
 }
 
 const toDoReducer = (state = INITIAL_STATE, action) => {
