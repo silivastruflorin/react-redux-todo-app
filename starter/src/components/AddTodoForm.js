@@ -4,13 +4,20 @@ import addItem from '../redux/todo.actions';
 
 const AddTodoForm = ({currentListItemsRetrived,additemActionMapped}) => {
 	const [value, setValue] = useState('');
+	const [itemExists, setItemExists] = useState('');
 
 	const onSubmit = (event) => {
 		event.preventDefault();
 		console.log('user entered: ' + value);
 		// adauga la state ul curent noul todo cu valoarea din <input>
 		console.log(currentListItemsRetrived);
-		additemActionMapped(value);
+		if (currentListItemsRetrived.includes(value)) {
+			setItemExists('Already present in array');
+		}else{
+			additemActionMapped(value);
+			setItemExists('');
+		}
+		
 	};
 
 	return (
@@ -23,10 +30,11 @@ const AddTodoForm = ({currentListItemsRetrived,additemActionMapped}) => {
 				value={value}
 				onChange={(event) => setValue(event.target.value)}
 			></input>
-
+		
 			<button type='submit' className='btn btn-primary mb-2'>
 				Submit
 			</button>
+			<div>{itemExists}</div>			
 		</form>
 	);
 };
