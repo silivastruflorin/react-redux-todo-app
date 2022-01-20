@@ -21,12 +21,12 @@ const toDoReducer = (state = INITIAL_STATE, action) => {
                 }
             )
         case 'TOGGLE_COMPLETE_ITEM': 
-            //copy the currentListItems(using .map) from the prevstate and then modify 'completed' property based on item.id
+            //copy the currentListItems(using .map) from the state and then modify 'completed' property based on item.id
             let newCurrentListItems= state.currentListItems.map(item => item.id === action.payload.id ? {...item, completed:!action.payload.completed } : item);
             return (
                 {
                     ...state, 
-                    currentListItems: newCurrentListItems,
+                    currentListItems: newCurrentListItems,  
                     //filter currentListItems based on completed property then take lenght of the filtered array to count the number of todos completed
                     TotalCompletedCount: newCurrentListItems.filter(item => item.completed === true).length                                
 
