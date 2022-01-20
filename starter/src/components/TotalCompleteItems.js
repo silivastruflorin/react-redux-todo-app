@@ -1,7 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const TotalCompleteItems = () => {
-	return <h4 className='mt-3'>Total Complete Items: 5</h4>;
+const TotalCompleteItems = ({TotalCompletedCount}) => {
+	return <h4 className='mt-3'>Total Complete Items: {TotalCompletedCount}</h4>;
 };
 
-export default TotalCompleteItems;
+
+const mapStateToProps = (state) => (     //any time the store is updated, mapStateToProps will be called. function takes a maximum of two parameters. 
+	{
+		TotalCompletedCount: state.todo.TotalCompletedCount
+	}	
+) // returns object mapStateToProps?: (state, ownPropsObject) => Object
+export default connect(mapStateToProps)(TotalCompleteItems);

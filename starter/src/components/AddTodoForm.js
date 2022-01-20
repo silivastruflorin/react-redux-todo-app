@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import {connect} from 'react-redux';
-import addItem from '../redux/todo.actions';
+import {addItem, toggleCompleteItem} from '../redux/todo.actions';
 
-const AddTodoForm = ({currentListItemsRetrived,additemActionMapped}) => {
+const AddTodoForm = ({currentListItemsRetrived,additemActionMapped,toggleCompletedItemMapped}) => {
 	const [value, setValue] = useState('');
-	const [itemExists, setItemExists] = useState('');
+	const [itemExists, setItemExists] = useState('');       //hook used to change value in div if item that we try to add already exists.
 
 	const onSubmit = (event) => {
 		event.preventDefault();
 		console.log('user entered: ' + value);
 		// adauga la state ul curent noul todo cu valoarea din <input>
-		console.log(currentListItemsRetrived);
-		if (currentListItemsRetrived.includes(value)) {
+
+		//check if input value already exists in the listItems 
+		if (currentListItemsRetrived.some(item => item.title === value)) {     //to see item(every object in currentListItemsRetrived) structure go to tot.reducer.js 
 			setItemExists('Already present in array');
 		}else{
 			additemActionMapped(value);
@@ -48,7 +49,8 @@ const mapStateToProps = (state) => (     //any time the store is updated, mapSta
 
 const mapDispatchToProps = (dispatch) => {
 	return{
-		additemActionMapped : (itemTitle) => dispatch(addItem(itemTitle)) 
+		additemActionMapped : (item) => dispatch(addItem(item)),
+		toggleCompletedItemMapped : (item) => dispatch(toggleCompleteItem(item))
 	}
 }
 

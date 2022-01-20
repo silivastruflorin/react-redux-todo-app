@@ -1,14 +1,23 @@
 
 //receives the item as paramter
 
-const addItem = itemTitle => {
+export const addItem = item => {
     return(
         {
             type:'ADD_ITEM',
-            payload: itemTitle
+            payload: item
         }
 
     )
 }
 
-export default addItem;
+export const toggleCompleteItem = item => {
+    return(
+        {
+            type:'TOGGLE_COMPLETE_ITEM',
+            payload: item
+        }
+
+    )
+}
+
